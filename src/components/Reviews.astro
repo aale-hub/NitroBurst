@@ -1,0 +1,131 @@
+---
+const reviews = [
+  {
+    name: "Lionel Messi",
+    photo: "https://randomuser.me/api/portraits/men/10.jpg", // Suplente realista
+    comment: "NitroBurst me da la energía perfecta antes de cada partido. ¡Increíble!",
+    rating: 5,
+  },
+  {
+    name: "Cristiano Ronaldo",
+    photo: "https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg",
+    comment: "Nunca había probado algo tan potente. ¡Me motiva aún más en el gimnasio!",
+    rating: 5,
+  },
+  {
+    name: "David Bisbal",
+    photo: "https://randomuser.me/api/portraits/men/35.jpg", // Suplente realista
+    comment: "Antes de cada show, NitroBurst me activa y me hace vibrar en el escenario.",
+    rating: 4,
+  },
+  {
+    name: "Ana Frank",
+    photo: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Anne_Frank_passport_photo.jpg",
+    comment: "Incluso en los momentos más difíciles, la energía puede venir de lo más simple.",
+    rating: 5,
+  },
+  {
+    name: "Lucía Romero",
+    photo: "https://randomuser.me/api/portraits/women/22.jpg",
+    comment: "¡Sabe increíble! Lo uso cada mañana antes de ir a clases.",
+    rating: 4,
+  },
+  {
+    name: "Mateo Vargas",
+    photo: "https://randomuser.me/api/portraits/men/45.jpg",
+    comment: "Ideal para cuando estudio por la noche. Energía sin crash.",
+    rating: 5,
+  },
+  {
+    name: "Sofía Delgado",
+    photo: "https://randomuser.me/api/portraits/women/65.jpg",
+    comment: "Me sorprendió lo bien que sabe. Fresa Salvaje es mi favorito.",
+    rating: 4,
+  },
+];
+---
+
+<style>
+  .carousel-track {
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+  }
+  .carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<section id="rewiews" class="max-w-5xl mx-auto px-6 py-16 bg-gray-900 rounded-xl shadow-lg text-white">
+  <h2 class="text-3xl font-bold mb-10 text-center">Reseñas de nuestros fans</h2>
+
+  <div class="relative">
+    <div
+      id="carousel"
+      class="carousel-track flex space-x-8 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide"
+    >
+      {reviews.map((review, index) => (
+        <article
+          key={index}
+          class="snap-center flex-shrink-0 w-80 bg-gray-800 rounded-xl p-6 shadow-lg"
+        >
+          <div class="flex items-center space-x-4 mb-4">
+            <img
+              src={review.photo}
+              alt={review.name}
+              class="w-14 h-14 rounded-full object-cover border-2 border-blue-500"
+            />
+            <div>
+              <h3 class="font-semibold text-lg">{review.name}</h3>
+              <div class="flex space-x-1 text-yellow-400">
+                {[...Array(review.rating)].map((_, i) => (
+                  <svg
+                    key={i}
+                    class="w-5 h-5 fill-current"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.947a1 1 0 00.95.69h4.153c.969 0 1.371 1.24.588 1.81l-3.36 2.44a1 1 0 00-.364 1.118l1.286 3.947c.3.922-.755 1.688-1.54 1.118l-3.36-2.44a1 1 0 00-1.176 0l-3.36 2.44c-.784.57-1.838-.196-1.539-1.118l1.286-3.947a1 1 0 00-.364-1.118L2.025 9.374c-.783-.57-.38-1.81.588-1.81h4.152a1 1 0 00.951-.69l1.286-3.947z" />
+                  </svg>
+                ))}
+              </div>
+            </div>
+          </div>
+          <p class="text-gray-300 leading-relaxed text-base">{review.comment}</p>
+        </article>
+      ))}
+    </div>
+
+    <!-- Botones -->
+    <button
+      id="prevBtn"
+      aria-label="Anterior"
+      class="absolute top-1/2 left-2 -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full shadow-lg transition-colors duration-300"
+    >
+      ‹
+    </button>
+    <button
+      id="nextBtn"
+      aria-label="Siguiente"
+      class="absolute top-1/2 right-2 -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full shadow-lg transition-colors duration-300"
+    >
+      ›
+    </button>
+  </div>
+</section>
+
+<script>
+  const track = document.getElementById("carousel");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const cardWidth = 320 + 32; // width + gap
+
+  prevBtn.addEventListener("click", () => {
+    track.scrollBy({ left: -cardWidth, behavior: "smooth" });
+  });
+
+  nextBtn.addEventListener("click", () => {
+    track.scrollBy({ left: cardWidth, behavior: "smooth" });
+  });
+</script>
